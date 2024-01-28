@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class CurrencyManipulator {
 
-    private String currencyCode;
-    private Map<Integer, Integer> denominations;
+    private String currencyCode; // код купюры
+    private Map<Integer, Integer> denominations; // номинал и кол-во купюр
 
 
     public CurrencyManipulator(String currencyCode) {
@@ -19,6 +19,8 @@ public class CurrencyManipulator {
         return currencyCode;
     }
 
+
+    // добавляем купюры
     public void addAmount(int denomination, int count) {
         if (this.denominations.containsKey(denomination)) {
             int result = this.denominations.get(denomination) + count;
@@ -28,10 +30,12 @@ public class CurrencyManipulator {
             this.denominations.put(denomination, count);
     }
 
+
+    // вернуть общее количество денег
     public int getTotalAmount() {
         int result = 0;
-        for (Map.Entry<Integer, Integer> m : denominations.entrySet()) {
-            result += m.getValue();
+        for (Map.Entry<Integer, Integer> m : this.denominations.entrySet()) {
+            result += (m.getValue() * m.getKey());
         }
         return result;
     }

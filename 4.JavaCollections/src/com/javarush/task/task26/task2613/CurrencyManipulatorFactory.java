@@ -5,12 +5,13 @@ import java.util.Locale;
 import java.util.Map;
 
 public class CurrencyManipulatorFactory {
-    private static Map<String, CurrencyManipulator> map = new HashMap<>();
+    private static Map<String, CurrencyManipulator> map = new HashMap<>(); // код купюры и их номинал и кол-во купюр
 
     private CurrencyManipulatorFactory() {
 
     }
 
+    // добавляем нужный код
     public static CurrencyManipulator getManipulatorByCurrencyCode(String currencyCode) {
         currencyCode = currencyCode.toLowerCase(Locale.ROOT);
         if (!map.containsKey(currencyCode))
