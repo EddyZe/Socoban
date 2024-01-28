@@ -13,7 +13,8 @@ public class CurrencyManipulatorFactory {
 
     public static CurrencyManipulator getManipulatorByCurrencyCode(String currencyCode) {
         currencyCode = currencyCode.toLowerCase(Locale.ROOT);
-        if (!map.containsKey(currencyCode)) map.put(currencyCode, new CurrencyManipulator(currencyCode));
+        if (!map.containsKey(currencyCode))
+            map.put(currencyCode, new CurrencyManipulator(currencyCode));
         return map.get(currencyCode);
     }
 }
