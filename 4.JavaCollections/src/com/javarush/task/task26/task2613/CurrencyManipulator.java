@@ -20,6 +20,11 @@ public class CurrencyManipulator {
     }
 
     public void addAmount(int denomination, int count) {
-        this.denominations.put(denomination, count);
+        if (this.denominations.containsKey(denomination)) {
+            int result = this.denominations.get(denomination) + count;
+            this.denominations.remove(denomination);
+            this.denominations.put(denomination, result);
+        } else
+            this.denominations.put(denomination, count);
     }
 }

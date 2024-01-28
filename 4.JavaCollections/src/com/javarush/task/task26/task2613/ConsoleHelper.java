@@ -27,7 +27,9 @@ public class ConsoleHelper {
         do {
             writeMessage("Введите код валюты (Например: 'USD'): ");
             result = ConsoleHelper.readString();
-        } while (result.length() != 3);
+            if (result.contains(" ")) writeMessage("Введите код без пробелов!");
+            else break;
+        } while (true);
 
         return result.toUpperCase();
     }
@@ -38,13 +40,18 @@ public class ConsoleHelper {
         do {
             writeMessage("Введите через пробел номинал и кол-во купюр: ");
             String[] temp = readString().split(" ");
-            try {
-                n = Integer.parseInt(temp[0]);
-                x = Integer.parseInt(temp[1]);
-            } catch (Exception e) {
-                writeMessage("Введите только целые, положительные числа!");
+            if (temp.length != 2) writeMessage("Введите 2 целых числа через пробел!");
+            else {
+                try {
+                    n = Integer.parseInt(temp[0]);
+                    x = Integer.parseInt(temp[1]);
+                    if (n < 0 || x < 0) writeMessage("Введите положительное число!");
+                    else break;
+                } catch (Exception e) {
+                    writeMessage("Введите только целые, положительные числа!");
+                }
             }
-        } while (n <= 0 || x <= 0);
+        } while (true);
         String[] result = new String[2];
         result[0] = String.valueOf(n);
         result[1] = String.valueOf(x);
