@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandExecutor {
-    private static Map<Operation, Command> allKnownCommandsMap = new HashMap<>();
+    private final static Map<Operation, Command> allKnownCommandsMap = new HashMap<>();
 
     static {
         allKnownCommandsMap.put(Operation.INFO, new InfoCommand());
@@ -15,10 +15,11 @@ public class CommandExecutor {
         allKnownCommandsMap.put(Operation.EXIT, new ExitCommand());
     }
 
+    private CommandExecutor(){ }
+
     public static final void execute(Operation operation) {
-        for (Map.Entry<Operation, Command> map : allKnownCommandsMap.entrySet()) {
-            map.getValue().execute();
-        }
+        Command command = allKnownCommandsMap.get(operation);
+        command.execute();
     }
 
 }
