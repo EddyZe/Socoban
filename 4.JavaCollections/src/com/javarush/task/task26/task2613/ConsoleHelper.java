@@ -57,4 +57,28 @@ public class ConsoleHelper {
         result[1] = String.valueOf(x);
         return result;
     }
+
+    public static Operation askOperation() {
+        do {
+
+            writeMessage("Какую операцию вы хотите выполнить:\n" +
+                    "1 - INFO\n" +
+                    "2 - DEPOSIT\n" +
+                    "3 - WITHDRAW\n" +
+                    "4 - EXIT");
+
+            int i;
+            try {
+                String str = readString();
+                i = Integer.parseInt(str.replaceAll(" ", ""));
+
+                if (i < 1 || i > 4)
+                    writeMessage(String.format("Введите число от 1 до %d", Operation.values().length));
+                else
+                    return Operation.getAllowableOperationByOrdinal(i);
+            } catch (Exception e) {
+                writeMessage("Введите число!");
+            }
+        } while (true);
+    }
 }
