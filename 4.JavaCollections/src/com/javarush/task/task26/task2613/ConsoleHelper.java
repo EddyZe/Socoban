@@ -73,7 +73,8 @@ public class ConsoleHelper {
                 i = Integer.parseInt(str.replaceAll(" ", ""));
 
                 if (i < 1 || i > 4)
-                    writeMessage(String.format("Введите число от 1 до %d", Operation.values().length));
+                    writeMessage(String.format("Введите число от 1 до %d",
+                            Operation.values().length));
                 else
                     return Operation.getAllowableOperationByOrdinal(i);
             } catch (Exception e) {
