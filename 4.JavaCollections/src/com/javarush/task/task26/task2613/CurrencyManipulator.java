@@ -1,8 +1,8 @@
 package com.javarush.task.task26.task2613;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.javarush.task.task26.task2613.exception.NotEnoughMoneyException;
+
+import java.util.*;
 
 public class CurrencyManipulator {
 
@@ -42,5 +42,47 @@ public class CurrencyManipulator {
 
     public boolean hasMoney() {
         return !this.denominations.isEmpty();
+    }
+
+    public boolean isAmountAvailable(int expectedAmount) {
+        if (!hasMoney()) return false;
+        return expectedAmount <= getTotalAmount();
+    }
+
+    public Map<Integer, Integer> withdrawAmount(int expectedAmount) throws NotEnoughMoneyException {
+        Map<Integer, Integer> result = new TreeMap<>(new MyComparator());
+        Map<Integer, Integer> tempSortedMap = new TreeMap<>(new MyComparator());
+        Map<Integer, Integer> newDenominationsMap = new HashMap<>(this.denominations);
+        tempSortedMap.putAll(this.denominations);
+        int amount = 0;
+        for (Map.Entry<Integer, Integer> m : tempSortedMap.entrySet()) {
+            if (amount == expectedAmount) break;
+            int nominal = m.getKey();
+            int countNominal = m.getValue();
+            if (amount + nominal > expectedAmount) continue;
+            int count = 0;
+            for (int i = 0; i < countNominal; i++) {
+                if (amount + nominal > expectedAmount)
+                    break;
+                amount += nominal;
+                count++;
+            }
+            result.put(nominal, count);
+            newDenominationsMap.remove(nominal);
+            if (countNominal - count > 0) {
+                newDenominationsMap.put(nominal, countNominal - count);
+            }
+        }
+        if (amount == expectedAmount) {
+            this.denominations = newDenominationsMap;
+        } else throw new NotEnoughMoneyException();
+        return result;
+    }
+
+    private class MyComparator implements Comparator<Integer> {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o2 - o1;
+        }
     }
 }
