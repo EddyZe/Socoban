@@ -1,5 +1,7 @@
 package com.javarush.task.task26.task2613;
 
+import com.javarush.task.task26.task2613.exception.InterruptOperationException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,15 +16,18 @@ public class ConsoleHelper {
         System.out.println(message);
     }
 
-    public static String readString() {
+    public static String readString() throws InterruptOperationException {
         try {
-            return bis.readLine();
-        } catch (Exception e) {
+            String result = bis.readLine();
+            if (result.equalsIgnoreCase("exit"))
+                throw new InterruptOperationException();
+            return result;
+        } catch (IOException e) {
         }
         return null;
     }
 
-    public static String askCurrencyCode() {
+    public static String askCurrencyCode() throws InterruptOperationException {
         String result;
         do {
             writeMessage("Введите код валюты (Например: 'USD'): ");
@@ -33,7 +38,7 @@ public class ConsoleHelper {
         return result.toUpperCase();
     }
 
-    public static String[] getValidTwoDigits(String currencyCode) {
+    public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
         int n = -1;
         int x = -1;
         writeMessage("Введите через пробел номинал и кол-во купюр: ");
@@ -46,7 +51,7 @@ public class ConsoleHelper {
                     x = Integer.parseInt(temp[1]);
                     if (n < 0 || x < 0) writeMessage("Введите положительное число!");
                     else break;
-                } catch (Exception e) {
+                } catch (NumberFormatException e) {
                     writeMessage("Введите только целые, положительные числа!");
                 }
             }
@@ -57,7 +62,7 @@ public class ConsoleHelper {
         return result;
     }
 
-    public static Operation askOperation() {
+    public static Operation askOperation() throws InterruptOperationException {
         writeMessage("Какую операцию вы хотите выполнить:\n" +
                 "1 - INFO\n" +
                 "2 - DEPOSIT\n" +
@@ -73,7 +78,7 @@ public class ConsoleHelper {
                             Operation.values().length));
                 else
                     return Operation.getAllowableOperationByOrdinal(i);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 writeMessage("Введите число!");
             }
         } while (true);
