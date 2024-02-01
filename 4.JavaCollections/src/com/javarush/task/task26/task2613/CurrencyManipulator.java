@@ -56,7 +56,7 @@ public class CurrencyManipulator {
         tempSortedMap.putAll(this.denominations);
         int amount = 0;
         for (Map.Entry<Integer, Integer> m : tempSortedMap.entrySet()) {
-            if (amount == expectedAmount) break;
+            if (amount >= expectedAmount) break;
             int nominal = m.getKey();
             int countNominal = m.getValue();
             if (amount + nominal > expectedAmount) continue;
@@ -74,7 +74,8 @@ public class CurrencyManipulator {
             }
         }
         if (amount == expectedAmount) {
-            this.denominations = newDenominationsMap;
+            this.denominations.clear();
+            this.denominations.putAll(newDenominationsMap);
         } else throw new NotEnoughMoneyException();
         return result;
     }

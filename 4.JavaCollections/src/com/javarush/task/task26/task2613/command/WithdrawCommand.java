@@ -11,17 +11,10 @@ import java.util.*;
 class WithdrawCommand implements Command{
     @Override
     public void execute() throws InterruptOperationException {
-        CurrencyManipulator currencyManipulator = null;
-        while (currencyManipulator == null) {
-            ConsoleHelper.writeMessage("Введите код валюты (Например: USD): ");
-            String code = ConsoleHelper.readString();
-            Collection<CurrencyManipulator> currencyManipulators = CurrencyManipulatorFactory.getAllCurrencyManipulators();
-            for (CurrencyManipulator cm : currencyManipulators) {
-                if (cm.getCurrencyCode().equalsIgnoreCase(code)) {
-                    currencyManipulator = cm;
-                }
-            }
-        }
+        ConsoleHelper.writeMessage("****************************************");
+        ConsoleHelper.writeMessage("Withdrawing...");
+        String code = ConsoleHelper.askCurrencyCode();
+        CurrencyManipulator currencyManipulator = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(code);
         ConsoleHelper.writeMessage("Введите сумму: ");
         while (true) {
             try {
@@ -35,6 +28,12 @@ class WithdrawCommand implements Command{
                     ConsoleHelper.writeMessage("Операция прошла успешно!");
                     ConsoleHelper.writeMessage("------------------------");
                     break;
+                } else {
+                    if (currencyManipulator.getTotalAmount() == 0) {
+                        ConsoleHelper.writeMessage(String.format("%s отсуствуют", currencyManipulator.getCurrencyCode()));
+                        break;
+                    }
+                    ConsoleHelper.writeMessage(String.format("Введите сумму не более %d", currencyManipulator.getTotalAmount()));
                 }
             } catch (NumberFormatException e) {
                 ConsoleHelper.writeMessage("Введите целое число!");
@@ -42,5 +41,6 @@ class WithdrawCommand implements Command{
                 ConsoleHelper.writeMessage("Невозможно выдать данную сумму, т.к не хватает банкнот");
             }
         }
+        ConsoleHelper.writeMessage("****************************************");
     }
 }

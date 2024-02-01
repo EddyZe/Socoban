@@ -12,16 +12,15 @@ class InfoCommand implements Command{
 
     @Override
     public void execute() {
+        ConsoleHelper.writeMessage("****************************************");
         List<String> money = getStringsMoney();
         if (money.isEmpty()) {
             ConsoleHelper.writeMessage("No money available.");
+            ConsoleHelper.writeMessage("****************************************");
             return;
         }
-        money.forEach((i) -> {
-            ConsoleHelper.writeMessage("------------------");
-            ConsoleHelper.writeMessage(i);
-            ConsoleHelper.writeMessage("------------------");
-        });
+        money.forEach(ConsoleHelper::writeMessage);
+        ConsoleHelper.writeMessage("****************************************");
     }
 
     public List<String> getStringsMoney() {

@@ -9,6 +9,7 @@ class DepositCommand implements Command{
 
     @Override
     public void execute() throws InterruptOperationException {
+        ConsoleHelper.writeMessage("****************************************");
         ConsoleHelper.writeMessage("Depositing... ");
         String code = ConsoleHelper.askCurrencyCode();
         CurrencyManipulator currencyManipulator = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(code);
@@ -16,7 +17,10 @@ class DepositCommand implements Command{
         int denomination = Integer.parseInt(denominationAndBanknotes[0]);
         int banknotes = Integer.parseInt(denominationAndBanknotes[1]);
         currencyManipulator.addAmount(denomination, banknotes);
+        ConsoleHelper.writeMessage("------------------------");
         ConsoleHelper.writeMessage(String.format("Вы внесли: %d %s", (denomination * banknotes), code));
+        ConsoleHelper.writeMessage("------------------------");
+        ConsoleHelper.writeMessage("****************************************");
     }
 
 }

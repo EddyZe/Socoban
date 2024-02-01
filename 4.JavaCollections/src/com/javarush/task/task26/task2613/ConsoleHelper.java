@@ -31,7 +31,7 @@ public class ConsoleHelper {
         String result;
         do {
             writeMessage("Введите код валюты (Например: 'USD'): ");
-            result = ConsoleHelper.readString();
+            result = ConsoleHelper.readString().trim();
             if (result.contains(" ")) writeMessage("Введите код без пробелов!");
             else break;
         } while (true);
