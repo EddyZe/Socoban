@@ -15,9 +15,9 @@ public class CommandExecutor {
         allKnownCommandsMap.put(Operation.EXIT, new ExitCommand());
     }
 
-    private CommandExecutor(){}
+    private CommandExecutor(){ }
 
-    public static final void execute(Operation operation) {
+    public static void execute(Operation operation) {
         Command command = allKnownCommandsMap.get(operation);
         command.execute();
     }

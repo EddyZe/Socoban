@@ -30,15 +30,14 @@ public class ConsoleHelper {
             if (result.contains(" ")) writeMessage("Введите код без пробелов!");
             else break;
         } while (true);
-
         return result.toUpperCase();
     }
 
     public static String[] getValidTwoDigits(String currencyCode) {
         int n = -1;
         int x = -1;
+        writeMessage("Введите через пробел номинал и кол-во купюр: ");
         do {
-            writeMessage("Введите через пробел номинал и кол-во купюр: ");
             String[] temp = readString().split(" ");
             if (temp.length != 2) writeMessage("Введите 2 целых числа через пробел!");
             else {
@@ -59,19 +58,16 @@ public class ConsoleHelper {
     }
 
     public static Operation askOperation() {
+        writeMessage("Какую операцию вы хотите выполнить:\n" +
+                "1 - INFO\n" +
+                "2 - DEPOSIT\n" +
+                "3 - WITHDRAW\n" +
+                "4 - EXIT");
         do {
-
-            writeMessage("Какую операцию вы хотите выполнить:\n" +
-                    "1 - INFO\n" +
-                    "2 - DEPOSIT\n" +
-                    "3 - WITHDRAW\n" +
-                    "4 - EXIT");
-
             int i;
             try {
                 String str = readString();
                 i = Integer.parseInt(str.replaceAll(" ", ""));
-
                 if (i < 1 || i > 4)
                     writeMessage(String.format("Введите число от 1 до %d",
                             Operation.values().length));
