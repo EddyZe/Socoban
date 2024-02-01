@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class CurrencyManipulator {
 
-    private String currencyCode; // код купюры
+    private final String currencyCode; // код купюры
     private Map<Integer, Integer> denominations; // номинал и кол-во купюр
 
 
