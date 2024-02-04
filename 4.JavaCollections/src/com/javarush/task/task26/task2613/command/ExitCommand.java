@@ -12,13 +12,14 @@ class ExitCommand implements Command{
 
     @Override
     public void execute() throws InterruptOperationException {
-        ConsoleHelper.writeMessage("Вы действительно хотите выйти?");
+        String exit = res.getString("exit.question.y.n");
+        String thank = res.getString("thank.message");
         while (true) {
             try {
-                ConsoleHelper.writeMessage("Введите 'y' или 'n'!");
+                ConsoleHelper.writeMessage(exit);
                 String result = ConsoleHelper.readString();
                 if (result.equalsIgnoreCase("y")) {
-                    ConsoleHelper.writeMessage("До свидания!");
+                    ConsoleHelper.writeMessage(thank);
                     return;
                 } else if (result.equalsIgnoreCase("n")) {
                     return;

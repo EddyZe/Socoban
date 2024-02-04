@@ -18,7 +18,7 @@ public class CashMachine {
                 CommandExecutor.execute(operation);
             } while (operation != Operation.EXIT);
         } catch (InterruptOperationException e) {
-            ConsoleHelper.writeMessage("До свидания!");
+            ConsoleHelper.writeMessage("Пока =)");
         }
 
     }

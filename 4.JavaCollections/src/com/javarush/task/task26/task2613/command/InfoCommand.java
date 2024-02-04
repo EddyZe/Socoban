@@ -16,10 +16,13 @@ class InfoCommand implements Command{
 
     @Override
     public void execute() {
+        String before = res.getString("before");
+        String noMoney = res.getString("no.money");
         ConsoleHelper.writeMessage("****************************************");
+        ConsoleHelper.writeMessage(before);
         List<String> money = getStringsMoney();
         if (money.isEmpty()) {
-            ConsoleHelper.writeMessage("No money available.");
+            ConsoleHelper.writeMessage(noMoney);
             ConsoleHelper.writeMessage("****************************************");
             return;
         }

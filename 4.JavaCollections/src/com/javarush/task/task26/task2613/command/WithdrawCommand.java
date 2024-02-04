@@ -1,5 +1,6 @@
 package com.javarush.task.task26.task2613.command;
 
+import com.javarush.task.task26.task2613.CashMachine;
 import com.javarush.task.task26.task2613.ConsoleHelper;
 import com.javarush.task.task26.task2613.CurrencyManipulator;
 import com.javarush.task.task26.task2613.CurrencyManipulatorFactory;
@@ -9,13 +10,24 @@ import com.javarush.task.task26.task2613.exception.NotEnoughMoneyException;
 import java.util.*;
 
 class WithdrawCommand implements Command{
+
+    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.class.getPackage().getName() + ".resources.withdraw_en");
+
     @Override
     public void execute() throws InterruptOperationException {
+
+        String before = res.getString("before");
+        String successFormat = res.getString("success.format");
+        String specifyAmount = res.getString("specify.amount");
+        String notEmptyAmount = res.getString("specify.not.empty.amount");
+        String enoughMoney = res.getString("enough.money");
+        String notAvailable = res.getString("not.available");
+
         ConsoleHelper.writeMessage("****************************************");
-        ConsoleHelper.writeMessage("Withdrawing...");
+        ConsoleHelper.writeMessage(before);
         String code = ConsoleHelper.askCurrencyCode();
         CurrencyManipulator currencyManipulator = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(code);
-        ConsoleHelper.writeMessage("Введите сумму: ");
+        ConsoleHelper.writeMessage("Enter the amount: ");
         while (true) {
             try {
                 int sum = Integer.parseInt(ConsoleHelper.readString());
@@ -25,20 +37,20 @@ class WithdrawCommand implements Command{
                     for (Map.Entry<Integer,Integer> m : denominations.entrySet()) {
                         ConsoleHelper.writeMessage("\t" + m.getKey() + " - " + m.getValue());
                     }
-                    ConsoleHelper.writeMessage("Операция прошла успешно!");
+                    ConsoleHelper.writeMessage("The operation was successful!");
                     ConsoleHelper.writeMessage("------------------------");
                     break;
                 } else {
                     if (currencyManipulator.getTotalAmount() == 0) {
-                        ConsoleHelper.writeMessage(String.format("%s отсуствуют", currencyManipulator.getCurrencyCode()));
+                        ConsoleHelper.writeMessage(String.format("%s missing", currencyManipulator.getCurrencyCode()));
                         break;
                     }
-                    ConsoleHelper.writeMessage(String.format("Введите сумму не более %d", currencyManipulator.getTotalAmount()));
+                    ConsoleHelper.writeMessage(String.format("Enter the maximum amount %d", currencyManipulator.getTotalAmount()));
                 }
             } catch (NumberFormatException e) {
-                ConsoleHelper.writeMessage("Введите целое число!");
+                ConsoleHelper.writeMessage(specifyAmount);
             } catch (NotEnoughMoneyException e) {
-                ConsoleHelper.writeMessage("Невозможно выдать данную сумму, т.к не хватает банкнот");
+                ConsoleHelper.writeMessage("It is impossible to issue this amount, because there are not enough banknotes");
             }
         }
         ConsoleHelper.writeMessage("****************************************");

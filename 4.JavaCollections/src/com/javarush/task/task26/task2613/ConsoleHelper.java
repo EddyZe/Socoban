@@ -6,11 +6,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
+import java.util.ResourceBundle;
 
 public class ConsoleHelper {
 
     private static final BufferedReader bis = new BufferedReader(new InputStreamReader(System.in));
+    private static ResourceBundle res = ResourceBundle.getBundle(CashMachine.class.getPackage().getName() + ".resources.common_en");
+
+    static String theEnd = res.getString("the.end");
+    static String chooseOperation = res.getString("choose.operation");
+    static String operationINFO = res.getString("operation.INFO");
+    static String operationDEPOSIT = res.getString("operation.DEPOSIT");
+    static String operationWITHDRAW = res.getString("operation.WITHDRAW");
+    static String operationEXIT = res.getString("operation.EXIT");
+    static String invalidData = res.getString("invalid.data");
+    static String currencyCode = res.getString("choose.currency.code");
+    static String chooseDenomination = res.getString("choose.denomination.and.count.format");
 
     public static void writeMessage(String message) {
         System.out.println(message);
@@ -32,27 +43,27 @@ public class ConsoleHelper {
         do {
             writeMessage("Введите код валюты (Например: 'USD'): ");
             result = ConsoleHelper.readString().trim();
-            if (result.contains(" ")) writeMessage("Введите код без пробелов!");
+            if (result.contains(" ")) writeMessage("Enter the code without spaces!");
             else break;
         } while (true);
         return result.toUpperCase();
     }
 
     public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
-        int n = -1;
-        int x = -1;
-        writeMessage("Введите через пробел номинал и кол-во купюр: ");
+        int n;
+        int x;
+        writeMessage(chooseDenomination);
         do {
-            String[] temp = readString().split(" ");
-            if (temp.length != 2) writeMessage("Введите 2 целых числа через пробел!");
+            String[] temp = Objects.requireNonNull(readString()).split(" ");
+            if (temp.length != 2) writeMessage("Enter 2 integers separated by a space!");
             else {
                 try {
                     n = Integer.parseInt(temp[0]);
                     x = Integer.parseInt(temp[1]);
-                    if (n < 0 || x < 0) writeMessage("Введите положительное число!");
+                    if (n < 0 || x < 0) writeMessage("Enter a positive number!");
                     else break;
                 } catch (NumberFormatException e) {
-                    writeMessage("Введите только целые, положительные числа!");
+                    writeMessage("Enter only integers, positive numbers!");
                 }
             }
         } while (true);
@@ -63,23 +74,24 @@ public class ConsoleHelper {
     }
 
     public static Operation askOperation() throws InterruptOperationException {
-        writeMessage("Какую операцию вы хотите выполнить:\n" +
-                "1 - INFO\n" +
-                "2 - DEPOSIT\n" +
-                "3 - WITHDRAW\n" +
-                "4 - EXIT");
+        writeMessage(chooseOperation + "\n" +
+                "1 - " + operationINFO + "\n" +
+                "2 - " + operationDEPOSIT + "\n" +
+                "3 - " + operationWITHDRAW + "\n" +
+                "4 - " + operationEXIT);
         do {
             int i;
             try {
                 String str = readString();
+                assert str != null;
                 i = Integer.parseInt(str.replaceAll(" ", ""));
                 if (i < 1 || i > Operation.values().length)
-                    writeMessage(String.format("Введите число от 1 до %d",
+                    writeMessage(String.format("Enter a number from 1 to %d",
                             Operation.values().length -1));
                 else
                     return Operation.getAllowableOperationByOrdinal(i);
             } catch (NumberFormatException e) {
-                writeMessage("Введите число!");
+                writeMessage("Enter a number!");
             }
         } while (true);
     }
