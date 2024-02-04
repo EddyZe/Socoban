@@ -12,7 +12,6 @@ public enum Operation {
 
     public static Operation getAllowableOperationByOrdinal(Integer i) {
         try {
-            if (i == 0) throw new InterruptOperationException();
             return Operation.values()[i];
         } catch (Exception e) {
             throw new IllegalArgumentException();
