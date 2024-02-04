@@ -19,8 +19,6 @@ public class ConsoleHelper {
     static String operationDEPOSIT = res.getString("operation.DEPOSIT");
     static String operationWITHDRAW = res.getString("operation.WITHDRAW");
     static String operationEXIT = res.getString("operation.EXIT");
-    static String invalidData = res.getString("invalid.data");
-    static String currencyCode = res.getString("choose.currency.code");
     static String chooseDenomination = res.getString("choose.denomination.and.count.format");
 
     public static void writeMessage(String message) {
@@ -94,5 +92,9 @@ public class ConsoleHelper {
                 writeMessage("Enter a number!");
             }
         } while (true);
+    }
+
+    public static void printExitMessage() {
+        writeMessage(theEnd);
     }
 }

@@ -6,9 +6,11 @@ import com.javarush.task.task26.task2613.exception.InterruptOperationException;
 
 import java.util.ResourceBundle;
 
+import static com.javarush.task.task26.task2613.CashMachine.RESOURCE_PATH;
+
 class LoginCommand implements Command {
-    private final ResourceBundle validCreditCards = ResourceBundle.getBundle(CashMachine.class.getPackage().getName() + ".resources.verifiedCards");
-    private final ResourceBundle res = ResourceBundle.getBundle(CashMachine.class.getPackage().getName() + ".resources.login_en");
+    private final ResourceBundle validCreditCards = ResourceBundle.getBundle(RESOURCE_PATH + "verifiedCards");
+    private final ResourceBundle res = ResourceBundle.getBundle(RESOURCE_PATH + "login_en");
 
     String before = res.getString("before");
     String validCardAndPinLength = res.getString("try.again.with.details");

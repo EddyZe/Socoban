@@ -6,9 +6,11 @@ import com.javarush.task.task26.task2613.exception.InterruptOperationException;
 
 import java.util.ResourceBundle;
 
+import static com.javarush.task.task26.task2613.CashMachine.RESOURCE_PATH;
+
 class ExitCommand implements Command{
 
-    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.class.getPackage().getName() + ".resources.exit_en");
+    private ResourceBundle res = ResourceBundle.getBundle(RESOURCE_PATH + "exit_en");
 
     @Override
     public void execute() throws InterruptOperationException {

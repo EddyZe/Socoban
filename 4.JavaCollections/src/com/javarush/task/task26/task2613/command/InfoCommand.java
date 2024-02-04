@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import static com.javarush.task.task26.task2613.CashMachine.RESOURCE_PATH;
+
 class InfoCommand implements Command{
 
-    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.class.getPackage().getName() + ".resources.info_en");
+    private ResourceBundle res = ResourceBundle.getBundle(RESOURCE_PATH + "info_en");
 
     @Override
     public void execute() {
