@@ -1,6 +1,9 @@
 package com.javarush.task.task26.task2613;
 
+import com.javarush.task.task26.task2613.exception.InterruptOperationException;
+
 public enum Operation {
+    LOGIN,
     INFO,
     DEPOSIT,
     WITHDRAW,
@@ -9,7 +12,8 @@ public enum Operation {
 
     public static Operation getAllowableOperationByOrdinal(Integer i) {
         try {
-            return Operation.values()[i - 1];
+            if (i == 0) throw new InterruptOperationException();
+            return Operation.values()[i];
         } catch (Exception e) {
             throw new IllegalArgumentException();
         }

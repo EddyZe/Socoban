@@ -73,9 +73,9 @@ public class ConsoleHelper {
             try {
                 String str = readString();
                 i = Integer.parseInt(str.replaceAll(" ", ""));
-                if (i < 1 || i > 4)
+                if (i < 1 || i > Operation.values().length)
                     writeMessage(String.format("Введите число от 1 до %d",
-                            Operation.values().length));
+                            Operation.values().length -1));
                 else
                     return Operation.getAllowableOperationByOrdinal(i);
             } catch (NumberFormatException e) {
