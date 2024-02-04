@@ -17,11 +17,7 @@ class WithdrawCommand implements Command{
     public void execute() throws InterruptOperationException {
 
         String before = res.getString("before");
-        String successFormat = res.getString("success.format");
         String specifyAmount = res.getString("specify.amount");
-        String notEmptyAmount = res.getString("specify.not.empty.amount");
-        String enoughMoney = res.getString("enough.money");
-        String notAvailable = res.getString("not.available");
 
         ConsoleHelper.writeMessage("****************************************");
         ConsoleHelper.writeMessage(before);
