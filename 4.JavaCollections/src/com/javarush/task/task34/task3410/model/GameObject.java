@@ -4,8 +4,10 @@ import java.awt.*;
 
 public abstract class GameObject {
 
-    private int x;
-    private int y;
+    protected int x;
+    protected int y;
+    protected int height;
+    protected int width;
 
     public void setX(int x) {
         this.x = x;
@@ -23,7 +25,6 @@ public abstract class GameObject {
         this.height = height;
     }
 
-    private int width;
 
     public GameObject(int x, int y) {
         this.x = x;
@@ -57,6 +58,6 @@ public abstract class GameObject {
         return height;
     }
 
-    private int height;
+
 
 }

@@ -9,13 +9,13 @@ public class Box extends CollisionObject implements Movable{
 
     @Override
     public void move(int x, int y) {
-        this.setX(this.getX() + x);
-        this.setY(this.getY() + y);
+        this.x += x;
+        this.y += y;
     }
 
     @Override
     public void draw(Graphics graphics) {
         graphics.setColor(Color.ORANGE);
-        graphics.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        graphics.fillRect(this.x, this.y, this.width, this.height);
     }
 }
