@@ -9,11 +9,12 @@ public class Controller {
     private final Model model;
 
     public static void main(String[] args) {
-
+        Controller controller = new Controller();
     }
 
     public Controller() {
         this.model = new Model();
         this.view = new View(this);
+        view.init();
     }
 }
