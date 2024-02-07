@@ -6,6 +6,23 @@ public abstract class GameObject {
 
     private int x;
     private int y;
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     private int width;
 
     public GameObject(int x, int y) {

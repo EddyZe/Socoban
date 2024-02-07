@@ -12,8 +12,7 @@ public class Controller {
 
     }
 
-    public Controller()
-    {
+    public Controller() {
         this.model = new Model();
         this.view = new View(this);
     }
