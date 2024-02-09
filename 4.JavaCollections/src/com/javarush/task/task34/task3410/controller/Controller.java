@@ -21,7 +21,7 @@ public class Controller implements EventListener{
 
     @Override
     public void move(Direction direction) {
-
+        
     }
 
     @Override
